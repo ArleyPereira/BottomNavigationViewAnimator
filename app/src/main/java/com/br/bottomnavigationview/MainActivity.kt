@@ -1,6 +1,7 @@
 package com.br.bottomnavigationview
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -21,19 +22,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //setSupportActionBar(toolbar)
-
         navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-
         navController = navHostFragment.navController
-
         appBarConfiguration = AppBarConfiguration(navController.graph)
 
-        NavigationUI.setupWithNavController(bottomNavigationView, navController)
 
-        // para toolbar
-        //setupActionBarWithNavController(navController, appBarConfiguration)
+        NavigationUI.setupWithNavController(bottomNavigationView, navController)
 
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             crossfade(destination.id)
@@ -46,7 +41,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun crossfade(destination: Int){
-
         if(destination != R.id.home && destination != R.id.feed
             && destination != R.id.cartao && destination != R.id.ajuda){
 
@@ -69,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                 alpha = 0f
                 nav_host_fragment.animate()
                     .alpha(1f)
-                    .setDuration(1000)
+                    .setDuration(500)
                     .setListener(null)
                 currentItem = destination
             }
